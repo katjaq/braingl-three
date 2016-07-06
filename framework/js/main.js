@@ -1,24 +1,34 @@
-var scene = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+$(document).ready( function() {
 
-var renderer = new THREE.WebGLRenderer();
-renderer.setSize( window.innerWidth, window.innerHeight );
-document.body.appendChild( renderer.domElement );
+	var $viewer =  $( "#viewer" );
+	var width = $viewer.width();
+	var height = $viewer.height();
 
-var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-var cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
+	var scene = new THREE.Scene();
+	var camera = new THREE.PerspectiveCamera( 75, width/height, 0.1, 1000 );
 
-camera.position.z = 5;
+	var renderer = new THREE.WebGLRenderer();
+	
+	renderer.setSize( width, height );
 
-var render = function () {
-	requestAnimationFrame( render );
+	$viewer[0].appendChild( renderer.domElement );
 
-	cube.rotation.x += 0.01;
-	cube.rotation.y += 0.01;
+	var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+	var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+	var cube = new THREE.Mesh( geometry, material );
+	scene.add( cube );
 
-	renderer.render(scene, camera);
-};
+	camera.position.z = 5;
 
-render();
+	var render = function () {
+		requestAnimationFrame( render );
+
+		cube.rotation.x += 0.01;
+		cube.rotation.y += 0.01;
+
+		renderer.render(scene, camera);
+	};
+
+	render();
+
+});
